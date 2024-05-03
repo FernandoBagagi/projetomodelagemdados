@@ -24,7 +24,11 @@ public class CategoriaResource {
         categorias.add(new Categoria(1, "Teste 3"));
 
         Optional<String> hashes = categorias.stream().map(Categoria::hashCode).map(String::valueOf).reduce((s1, s2) -> s1 + ", " + s2);
-        hashes.ifPresent(System.out::println); 
+        hashes.ifPresent(System.out::println);
+
+        System.out.println(categorias.get(0).equals(categorias.get(1)));
+        System.out.println(categorias.get(0).equals(categorias.get(2)));
+        System.out.println(categorias.get(1).equals(categorias.get(2)));
         
         return categorias;
 
