@@ -1,0 +1,1 @@
+INSERT INTO categorias(ID, NOME) VALUES (1, 'Informática'), (2, 'Eletrônicos');
