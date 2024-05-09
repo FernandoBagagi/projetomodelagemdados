@@ -1,1 +1,1 @@
-INSERT INTO categorias(ID, NOME) VALUES (1, 'Informática'), (2, 'Eletrônicos');
+INSERT INTO categorias(NOME) VALUES ('Informática SQL'), ('Eletrônicos SQL');
