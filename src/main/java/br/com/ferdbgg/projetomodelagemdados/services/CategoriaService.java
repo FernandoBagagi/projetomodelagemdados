@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import br.com.ferdbgg.projetomodelagemdados.domain.Categoria;
+import br.com.ferdbgg.projetomodelagemdados.models.Categoria;
 import br.com.ferdbgg.projetomodelagemdados.repositories.CategoriaRepository;
 
 @Service
