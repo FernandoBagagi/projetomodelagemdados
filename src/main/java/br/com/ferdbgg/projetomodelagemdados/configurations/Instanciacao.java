@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
-import br.com.ferdbgg.projetomodelagemdados.models.Categoria;
+import br.com.ferdbgg.projetomodelagemdados.models.Entities.Categoria;
 import br.com.ferdbgg.projetomodelagemdados.repositories.CategoriaRepository;
 
 @Configuration
