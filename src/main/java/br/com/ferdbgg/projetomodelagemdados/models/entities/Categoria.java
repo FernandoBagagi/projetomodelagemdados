@@ -1,4 +1,4 @@
-package br.com.ferdbgg.projetomodelagemdados.models.Entities;
+package br.com.ferdbgg.projetomodelagemdados.models.entities;
 
 import java.io.Serializable;
 import java.util.Objects;
