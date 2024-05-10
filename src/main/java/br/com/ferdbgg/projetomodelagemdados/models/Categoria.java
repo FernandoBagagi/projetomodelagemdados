@@ -1,4 +1,4 @@
-package br.com.ferdbgg.projetomodelagemdados.domain;
+package br.com.ferdbgg.projetomodelagemdados.models;
 
 import java.io.Serializable;
 import java.util.Objects;
