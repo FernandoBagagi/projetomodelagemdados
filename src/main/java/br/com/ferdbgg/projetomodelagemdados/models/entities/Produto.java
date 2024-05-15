@@ -42,7 +42,7 @@ public class Produto implements Serializable {
     private String nome;
 
     @Column(nullable = false, columnDefinition = "DECIMAL(15, 2) DEFAULT '0.00'")
-    @DecimalMin(value = "0.00")
+    @DecimalMin(value = "0.00", message = "Não é permitido salvar um produto com preço negativo")
     private BigDecimal preco;
 
     @Setter(value = AccessLevel.NONE)
