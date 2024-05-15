@@ -10,6 +10,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
 import lombok.AccessLevel;
@@ -43,6 +46,12 @@ public class Produto implements Serializable {
     private BigDecimal preco;
 
     @Setter(value = AccessLevel.NONE)
+    @ManyToMany
+    @JoinTable(
+        name = "produtos_categorias",
+        joinColumns = @JoinColumn(name = "idProduto"),
+        inverseJoinColumns = @JoinColumn(name = "idCategoria")
+    )
     private List<Categoria> categorias = new ArrayList<>();
 
     public void setCategorias(List<Categoria> categorias) {
