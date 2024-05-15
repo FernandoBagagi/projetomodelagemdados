@@ -11,6 +11,7 @@ import br.com.ferdbgg.projetomodelagemdados.models.entities.Categoria;
 import br.com.ferdbgg.projetomodelagemdados.models.entities.Produto;
 import br.com.ferdbgg.projetomodelagemdados.repositories.CategoriaRepository;
 import br.com.ferdbgg.projetomodelagemdados.repositories.ProdutoRepository;
+import jakarta.validation.ConstraintViolationException;
 
 @Configuration
 public class Instanciacao implements CommandLineRunner {
@@ -33,9 +34,18 @@ public class Instanciacao implements CommandLineRunner {
         categoriaDumb.add(new Categoria(null, "Escritório"));
         this.categoriaRepository.saveAll(categoriaDumb);
 
+        try {
+            this.produtoRepository.save(new Produto(null, "Preço negativo", new BigDecimal(-1), categoriaDumb));
+        } catch (ConstraintViolationException e) {
+            System.err.println(e.getMessage());
+            System.err.println(e.getLocalizedMessage());
+            e.getConstraintViolations().forEach(constraint -> System.err.println(constraint.getMessageTemplate()));
+            System.err.println(e.getConstraintViolations());
+        }
+
 
         List<Produto> produtosDumb = new ArrayList<>();
-        produtosDumb.add(new Produto(null, "Preço negativo", new BigDecimal(-1), categoriaDumb));
+        //produtosDumb.add(new Produto(null, "Preço negativo", new BigDecimal(-1), categoriaDumb));
         this.produtoRepository.saveAll(produtosDumb);
 
     }
