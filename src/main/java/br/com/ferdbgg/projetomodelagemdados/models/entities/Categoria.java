@@ -1,13 +1,17 @@
 package br.com.ferdbgg.projetomodelagemdados.models.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +32,22 @@ public class Categoria implements Serializable {
     private Integer id;
 
     private String nome;
+
+    @Setter(value = AccessLevel.NONE)
+    @ManyToMany(mappedBy = "categorias")
+    private List<Produto> produtos = new ArrayList<>();
+
+    public Categoria(Integer id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos.clear();
+        if(produtos != null) {
+            this.produtos.addAll(produtos);
+        }
+    }
 
     @Override
     public boolean equals(Object obj) {
