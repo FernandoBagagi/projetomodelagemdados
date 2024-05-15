@@ -8,14 +8,17 @@ import org.springframework.context.annotation.Configuration;
 
 import br.com.ferdbgg.projetomodelagemdados.models.entities.Categoria;
 import br.com.ferdbgg.projetomodelagemdados.repositories.CategoriaRepository;
+import br.com.ferdbgg.projetomodelagemdados.repositories.ProdutoRepository;
 
 @Configuration
 public class Instanciacao implements CommandLineRunner {
 
     private final CategoriaRepository categoriaRepository;
+    private final ProdutoRepository produtoRepository;
     
-    public Instanciacao(CategoriaRepository categoriaRepository) {
+    public Instanciacao(CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository) {
         this.categoriaRepository = categoriaRepository;
+        this.produtoRepository = produtoRepository;
     }
 
     @Override
