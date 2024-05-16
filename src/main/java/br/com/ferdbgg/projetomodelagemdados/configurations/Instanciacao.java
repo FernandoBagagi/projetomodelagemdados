@@ -35,17 +35,18 @@ public class Instanciacao implements CommandLineRunner {
         this.categoriaRepository.saveAll(categoriaDumb);
 
         try {
-            this.produtoRepository.save(new Produto(null, "Preço negativo", new BigDecimal(-1), categoriaDumb));
+            this.produtoRepository.save(new Produto("Preço negativo", new BigDecimal(-1)));
         } catch (ConstraintViolationException e) {
-            System.err.println(e.getMessage());
+            //System.err.println(e.getMessage());
             System.err.println(e.getLocalizedMessage());
             e.getConstraintViolations().forEach(constraint -> System.err.println(constraint.getMessageTemplate()));
-            System.err.println(e.getConstraintViolations());
+            //System.err.println(e.getConstraintViolations());
         }
 
 
         List<Produto> produtosDumb = new ArrayList<>();
-        //produtosDumb.add(new Produto(null, "Preço negativo", new BigDecimal(-1), categoriaDumb));
+        produtosDumb.add(new Produto("Monitor", BigDecimal.valueOf(0.1)));
+        produtosDumb.get(0).getCategorias().add(categoriaDumb.get(0));
         this.produtoRepository.saveAll(produtosDumb);
 
     }
