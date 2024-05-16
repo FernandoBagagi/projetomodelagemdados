@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,7 +35,7 @@ public class Categoria implements Serializable {
     private String nome;
 
     @Setter(value = AccessLevel.NONE)
-    @ManyToMany(mappedBy = "categorias")
+    @ManyToMany(mappedBy = "categorias", fetch = FetchType.LAZY)
     private List<Produto> produtos = new ArrayList<>();
 
     public Categoria(Integer id, String nome) {
