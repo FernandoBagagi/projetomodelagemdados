@@ -53,6 +53,11 @@ public class Produto implements Serializable {
     )
     private List<Categoria> categorias = new ArrayList<>();
 
+    public Produto(String nome, BigDecimal preco) {
+        this.nome = nome;
+        this.preco = preco;
+    }
+
     public void setCategorias(List<Categoria> categorias) {
         this.categorias.clear();
         if(categorias != null) {
