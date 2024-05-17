@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -35,6 +37,7 @@ public class Categoria implements Serializable {
     private String nome;
 
     @Setter(value = AccessLevel.NONE)
+    @JsonBackReference
     @ManyToMany(mappedBy = "categorias", fetch = FetchType.LAZY)
     private List<Produto> produtos = new ArrayList<>();
 
