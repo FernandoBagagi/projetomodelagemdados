@@ -1,7 +1,6 @@
 package br.com.ferdbgg.projetomodelagemdados.services;
 
 import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
 import br.com.ferdbgg.projetomodelagemdados.models.entities.Categoria;
@@ -17,13 +16,8 @@ public class CategoriaService {
     }
 
     public Categoria buscarPorId(Integer id) {
-        if (id != null) {
-            Optional<Categoria> categoria = this.categoriaRepository.findById(id);
-            if (categoria.isPresent()) {
-                return categoria.get();
-            }
-        }
-        return null;
+        final Optional<Categoria> categoria = this.categoriaRepository.findById(id);
+        return categoria.orElseThrow(() -> new ObjetoNaoEncontradoException(id, Categoria.class));
     }
 
 }
