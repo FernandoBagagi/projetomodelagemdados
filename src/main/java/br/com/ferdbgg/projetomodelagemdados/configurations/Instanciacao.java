@@ -27,7 +27,7 @@ public class Instanciacao implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        //this.categoriaRepository.deleteAll();
+        this.categoriaRepository.deleteAll();
 
         List<Categoria> categoriaDumb = new ArrayList<>();
         categoriaDumb.add(new Categoria(null, "Informática"));
