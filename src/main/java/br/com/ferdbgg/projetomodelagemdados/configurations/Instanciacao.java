@@ -28,6 +28,7 @@ public class Instanciacao implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         this.categoriaRepository.deleteAll();
+        this.produtoRepository.deleteAll();
 
         List<Categoria> categoriaDumb = new ArrayList<>();
         categoriaDumb.add(new Categoria(null, "Informática"));
