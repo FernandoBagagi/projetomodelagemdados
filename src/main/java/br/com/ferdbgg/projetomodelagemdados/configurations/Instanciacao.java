@@ -8,8 +8,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
 import br.com.ferdbgg.projetomodelagemdados.models.entities.Categoria;
+import br.com.ferdbgg.projetomodelagemdados.models.entities.Cidade;
+import br.com.ferdbgg.projetomodelagemdados.models.entities.EstadoEnum;
 import br.com.ferdbgg.projetomodelagemdados.models.entities.Produto;
 import br.com.ferdbgg.projetomodelagemdados.repositories.CategoriaRepository;
+import br.com.ferdbgg.projetomodelagemdados.repositories.CidadeRepository;
 import br.com.ferdbgg.projetomodelagemdados.repositories.ProdutoRepository;
 import jakarta.validation.ConstraintViolationException;
 
@@ -18,10 +21,12 @@ public class Instanciacao implements CommandLineRunner {
 
     private final CategoriaRepository categoriaRepository;
     private final ProdutoRepository produtoRepository;
+    private final CidadeRepository cidadeRepository;
     
-    public Instanciacao(CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository) {
+    public Instanciacao(CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository, CidadeRepository cidadeRepository) {
         this.categoriaRepository = categoriaRepository;
         this.produtoRepository = produtoRepository;
+        this.cidadeRepository = cidadeRepository;
     }
 
     @Override
@@ -49,6 +54,13 @@ public class Instanciacao implements CommandLineRunner {
         produtosDumb.add(new Produto("Monitor", BigDecimal.valueOf(0.1)));
         produtosDumb.get(0).getCategorias().add(categoriaDumb.get(0));
         this.produtoRepository.saveAll(produtosDumb);
+
+        List<Cidade> cidadesDumb = new ArrayList<>();
+        cidadesDumb.add(new Cidade("São Paulo", EstadoEnum.SP));
+        cidadesDumb.add(new Cidade("Campinas", EstadoEnum.SP));
+        cidadesDumb.add(new Cidade("Uberlândia", EstadoEnum.MG));
+        cidadesDumb.add(new Cidade("Manaus", EstadoEnum.AM));
+        this.cidadeRepository.saveAll(cidadesDumb);
 
     }
 
