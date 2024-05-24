@@ -12,18 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.ferdbgg.projetomodelagemdados.models.entities.Cidade;
 import br.com.ferdbgg.projetomodelagemdados.services.CidadeService;
 
-
-
 @RestController
 @RequestMapping(value = "/cidades")
 public class CidadeResource {
-    
+
     private CidadeService cidadeService;
 
     public CidadeResource(CidadeService cidadeService) {
         this.cidadeService = cidadeService;
     }
-    
+
     @GetMapping
     public ResponseEntity<List<Cidade>> buscarTudo() {
         return ResponseEntity.ok().body(this.cidadeService.buscarTudo());
@@ -34,7 +32,8 @@ public class CidadeResource {
         return ResponseEntity.ok().body(this.cidadeService.buscarPorId(id));
     }
 
-    //URL de teste: http://localhost:8080/cidades/paginado?numeroPagina=0&resultadosPorPagina=1
+    // URL de teste:
+    // http://localhost:8080/cidades/paginado?numeroPagina=0&resultadosPorPagina=1
     @GetMapping("/paginado")
     public ResponseEntity<List<Cidade>> buscarTudoPaginado(Integer numeroPagina, Integer resultadosPorPagina) {
         if (numeroPagina == null || numeroPagina < 0) {
