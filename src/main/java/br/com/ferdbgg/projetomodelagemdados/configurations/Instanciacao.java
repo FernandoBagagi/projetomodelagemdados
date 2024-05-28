@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 
 import br.com.ferdbgg.projetomodelagemdados.models.entities.Categoria;
 import br.com.ferdbgg.projetomodelagemdados.models.entities.Cidade;
-import br.com.ferdbgg.projetomodelagemdados.models.entities.EstadoEnum;
 import br.com.ferdbgg.projetomodelagemdados.models.entities.Produto;
+import br.com.ferdbgg.projetomodelagemdados.models.enums.EstadoEnum;
 import br.com.ferdbgg.projetomodelagemdados.repositories.CategoriaRepository;
 import br.com.ferdbgg.projetomodelagemdados.repositories.CidadeRepository;
 import br.com.ferdbgg.projetomodelagemdados.repositories.ProdutoRepository;
