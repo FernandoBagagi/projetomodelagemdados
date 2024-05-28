@@ -2,6 +2,7 @@ package br.com.ferdbgg.projetomodelagemdados.configurations;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
@@ -9,8 +10,11 @@ import org.springframework.context.annotation.Configuration;
 
 import br.com.ferdbgg.projetomodelagemdados.models.entities.Categoria;
 import br.com.ferdbgg.projetomodelagemdados.models.entities.Cidade;
+import br.com.ferdbgg.projetomodelagemdados.models.entities.Cliente;
+import br.com.ferdbgg.projetomodelagemdados.models.entities.Endereco;
 import br.com.ferdbgg.projetomodelagemdados.models.entities.Produto;
 import br.com.ferdbgg.projetomodelagemdados.models.enums.EstadoEnum;
+import br.com.ferdbgg.projetomodelagemdados.models.enums.TipoClienteEnum;
 import br.com.ferdbgg.projetomodelagemdados.repositories.CategoriaRepository;
 import br.com.ferdbgg.projetomodelagemdados.repositories.CidadeRepository;
 import br.com.ferdbgg.projetomodelagemdados.repositories.ProdutoRepository;
@@ -61,6 +65,16 @@ public class Instanciacao implements CommandLineRunner {
         cidadesDumb.add(new Cidade("Uberlândia", EstadoEnum.MG));
         cidadesDumb.add(new Cidade("Manaus", EstadoEnum.AM));
         this.cidadeRepository.saveAll(cidadesDumb);
+
+        Cliente cliente1 = new Cliente("Maria", "maria@gmail.com", "111.222.333-44", TipoClienteEnum.PESSOAFISICA);
+        cliente1.getTelefones().add("+55 (11) 12345-6789");
+        cliente1.getTelefones().add("+55 (22) 54321-9876");
+
+        Endereco endereco1 = new Endereco("Rua Flores", "300", "Apto 303", "Jardim", "38220834", cidadesDumb.get(0), cliente1);
+        Endereco endereco2 = new Endereco("Rua Flores", "300", "Apto 303", "Jardim", "38220834", cidadesDumb.get(0), cliente1);
+
+        cliente1.getEnderecos().addAll(Arrays.asList(endereco1, endereco2));
+        
 
     }
 
