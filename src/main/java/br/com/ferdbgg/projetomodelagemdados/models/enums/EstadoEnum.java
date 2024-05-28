@@ -1,4 +1,4 @@
-package br.com.ferdbgg.projetomodelagemdados.models.entities;
+package br.com.ferdbgg.projetomodelagemdados.models.enums;
 
 public enum EstadoEnum {
 
