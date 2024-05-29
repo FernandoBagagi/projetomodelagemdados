@@ -17,6 +17,7 @@ import br.com.ferdbgg.projetomodelagemdados.models.enums.EstadoEnum;
 import br.com.ferdbgg.projetomodelagemdados.models.enums.TipoClienteEnum;
 import br.com.ferdbgg.projetomodelagemdados.repositories.CategoriaRepository;
 import br.com.ferdbgg.projetomodelagemdados.repositories.CidadeRepository;
+import br.com.ferdbgg.projetomodelagemdados.repositories.EnderecoRepository;
 import br.com.ferdbgg.projetomodelagemdados.repositories.ProdutoRepository;
 import jakarta.validation.ConstraintViolationException;
 
@@ -26,11 +27,13 @@ public class Instanciacao implements CommandLineRunner {
     private final CategoriaRepository categoriaRepository;
     private final ProdutoRepository produtoRepository;
     private final CidadeRepository cidadeRepository;
+    private final EnderecoRepository enderecoRepository;
     
-    public Instanciacao(CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository, CidadeRepository cidadeRepository) {
+    public Instanciacao(CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository, CidadeRepository cidadeRepository, EnderecoRepository enderecoRepository) {
         this.categoriaRepository = categoriaRepository;
         this.produtoRepository = produtoRepository;
         this.cidadeRepository = cidadeRepository;
+        this.enderecoRepository = enderecoRepository;
     }
 
     @Override
@@ -70,10 +73,12 @@ public class Instanciacao implements CommandLineRunner {
         cliente1.getTelefones().add("+55 (11) 12345-6789");
         cliente1.getTelefones().add("+55 (22) 54321-9876");
 
-        Endereco endereco1 = new Endereco("Rua Flores", "300", "Apto 303", "Jardim", "38220834", cidadesDumb.get(0), cliente1);
-        Endereco endereco2 = new Endereco("Rua Flores", "300", "Apto 303", "Jardim", "38220834", cidadesDumb.get(0), cliente1);
+        List<Endereco> enderecosDumb = new ArrayList<>();
+        enderecosDumb.add(new Endereco("Rua Flores", "300", "Apto 303", "Jardim", "38220834", cidadesDumb.get(0), null));
+        enderecosDumb.add(new Endereco("Rua Flores", "300", "Apto 303", "Jardim", "38220834", cidadesDumb.get(0), null));
+        this.enderecoRepository.saveAll(enderecosDumb);
 
-        cliente1.getEnderecos().addAll(Arrays.asList(endereco1, endereco2));
+        cliente1.getEnderecos().addAll(Arrays.asList(enderecosDumb.get(0), enderecosDumb.get(1)));
         
 
     }
