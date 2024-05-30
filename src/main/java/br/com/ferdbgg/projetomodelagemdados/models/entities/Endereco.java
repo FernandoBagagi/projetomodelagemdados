@@ -2,6 +2,8 @@ package br.com.ferdbgg.projetomodelagemdados.models.entities;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -52,6 +54,7 @@ public class Endereco implements Serializable {
     private Cidade cidade;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "idCliente")
     private Cliente cliente;
 
@@ -63,6 +66,10 @@ public class Endereco implements Serializable {
         this.cep = cep;
         this.cidade = cidade;
         this.cliente = cliente;
+    }
+
+    public String getNomeCliente() {
+        return this.cliente == null ? "Sem cliente" : cliente.getNome();
     }
         
 }
