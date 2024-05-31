@@ -1,5 +1,7 @@
 package br.com.ferdbgg.projetomodelagemdados.models.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum TipoClienteEnum implements EnumPadrao<TipoClienteEnum> {
 
     PESSOAFISICA(1, "Pessoa Física"),
@@ -23,6 +25,7 @@ public enum TipoClienteEnum implements EnumPadrao<TipoClienteEnum> {
     }
 
     @Override
+    @JsonValue
     public String toString() {
         return this.getNome();
     }
