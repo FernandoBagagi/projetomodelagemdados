@@ -1,6 +1,6 @@
 package br.com.ferdbgg.projetomodelagemdados.models.enums;
 
-public enum TipoClienteEnum {
+public enum TipoClienteEnum implements EnumPadrao<TipoClienteEnum> {
 
     PESSOAFISICA(1, "Pessoa Física"),
     PESSOAJURIDICA(2, "Pessoa Jurídica");
@@ -13,6 +13,7 @@ public enum TipoClienteEnum {
         this.nome = nome;
     }
 
+    @Override
     public Integer getCodigo() {
         return this.codigo;
     }
@@ -27,12 +28,7 @@ public enum TipoClienteEnum {
     }
 
     public static TipoClienteEnum fromInteger(Integer codigo) {
-        for(TipoClienteEnum tipoCliente :  TipoClienteEnum.values()) {
-            if(tipoCliente.getCodigo().equals(codigo) ) {
-                return tipoCliente;
-            }
-        }
-        return null;
+        return EnumPadrao.fromInteger(TipoClienteEnum.class, codigo);
     }
 
 }
