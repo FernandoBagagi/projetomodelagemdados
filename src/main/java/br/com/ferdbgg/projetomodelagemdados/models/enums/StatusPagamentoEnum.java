@@ -1,5 +1,7 @@
 package br.com.ferdbgg.projetomodelagemdados.models.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum StatusPagamentoEnum implements EnumPadrao<StatusPagamentoEnum> {
 
     PENDENTE(1, "Pendente"),
@@ -24,6 +26,7 @@ public enum StatusPagamentoEnum implements EnumPadrao<StatusPagamentoEnum> {
     }
 
     @Override
+    @JsonValue
     public String toString() {
         return this.getNome();
     }
