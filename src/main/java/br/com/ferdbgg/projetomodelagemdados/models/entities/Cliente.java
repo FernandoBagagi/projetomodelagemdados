@@ -56,14 +56,19 @@ public class Cliente implements Serializable {
     private Integer tipoCliente;
 
     @Setter(value = AccessLevel.NONE)
-    @JsonManagedReference
     @OneToMany(mappedBy = "cliente")
+    @JsonManagedReference
     private List<Endereco> enderecos = new ArrayList<>();
 
     @Setter(value = AccessLevel.NONE)
     @ElementCollection
     @CollectionTable(name = "telefones")
     private Set<String> telefones = new HashSet<>();
+
+    @Setter(value = AccessLevel.NONE)
+    @OneToMany(mappedBy = "cliente")
+    @JsonManagedReference
+    private List<Pedido> pedidos = new ArrayList<>();
 
     public Cliente(String nome, String email, String cpfOuCnpj, TipoClienteEnum tipoCliente) {
         this.nome = nome;
@@ -91,6 +96,13 @@ public class Cliente implements Serializable {
         this.telefones.clear();
         if(telefones != null) {
             this.telefones.addAll(telefones);
+        }
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos.clear();
+        if(pedidos != null) {
+            this.pedidos.addAll(pedidos);
         }
     }
 
