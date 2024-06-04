@@ -16,12 +16,12 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "pagamentoscartaocredito")
-public abstract class PagamentoCartaoCredito extends Pagamento {
+public class PagamentoCartaoCredito extends Pagamento {
 
     private String numeroCartaoCredito;
     
-    protected PagamentoCartaoCredito(StatusPagamentoEnum status, String numeroCartaoCredito) {
-        super(status);
+    public PagamentoCartaoCredito(StatusPagamentoEnum status, Pedido pedido, String numeroCartaoCredito) {
+        super(status, pedido);
         this.numeroCartaoCredito = numeroCartaoCredito;
     }
     
