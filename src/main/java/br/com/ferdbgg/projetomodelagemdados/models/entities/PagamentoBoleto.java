@@ -18,14 +18,14 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "pagamentosboleto")
-public abstract class PagamentoBoleto extends Pagamento {
+public class PagamentoBoleto extends Pagamento {
 
     private Date vencimento;
 
     private Date pagamento;
 
-    protected PagamentoBoleto(StatusPagamentoEnum status, Date vencimento, Date pagamento) {
-        super(status);
+    public PagamentoBoleto(StatusPagamentoEnum status, Pedido pedido, Date vencimento, Date pagamento) {
+        super(status, pedido);
         this.vencimento = vencimento;
         this.pagamento = pagamento;
     }
