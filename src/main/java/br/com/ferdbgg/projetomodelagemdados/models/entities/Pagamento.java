@@ -42,8 +42,9 @@ public abstract class Pagamento implements Serializable {
     @MapsId
     protected Pedido pedido;
 
-    protected Pagamento(StatusPagamentoEnum status) {
+    protected Pagamento(StatusPagamentoEnum status, Pedido pedido) {
         this.status = status;
+        this.pedido = pedido;
     }
     
 }
