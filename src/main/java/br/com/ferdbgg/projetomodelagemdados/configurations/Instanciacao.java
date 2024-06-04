@@ -1,6 +1,7 @@
 package br.com.ferdbgg.projetomodelagemdados.configurations;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,13 +13,20 @@ import br.com.ferdbgg.projetomodelagemdados.models.entities.Categoria;
 import br.com.ferdbgg.projetomodelagemdados.models.entities.Cidade;
 import br.com.ferdbgg.projetomodelagemdados.models.entities.Cliente;
 import br.com.ferdbgg.projetomodelagemdados.models.entities.Endereco;
+import br.com.ferdbgg.projetomodelagemdados.models.entities.Pagamento;
+import br.com.ferdbgg.projetomodelagemdados.models.entities.PagamentoBoleto;
+import br.com.ferdbgg.projetomodelagemdados.models.entities.PagamentoCartaoCredito;
+import br.com.ferdbgg.projetomodelagemdados.models.entities.Pedido;
 import br.com.ferdbgg.projetomodelagemdados.models.entities.Produto;
 import br.com.ferdbgg.projetomodelagemdados.models.enums.EstadoEnum;
+import br.com.ferdbgg.projetomodelagemdados.models.enums.StatusPagamentoEnum;
 import br.com.ferdbgg.projetomodelagemdados.models.enums.TipoClienteEnum;
 import br.com.ferdbgg.projetomodelagemdados.repositories.CategoriaRepository;
 import br.com.ferdbgg.projetomodelagemdados.repositories.CidadeRepository;
 import br.com.ferdbgg.projetomodelagemdados.repositories.ClienteRepository;
 import br.com.ferdbgg.projetomodelagemdados.repositories.EnderecoRepository;
+import br.com.ferdbgg.projetomodelagemdados.repositories.PagamentoRepository;
+import br.com.ferdbgg.projetomodelagemdados.repositories.PedidoRepository;
 import br.com.ferdbgg.projetomodelagemdados.repositories.ProdutoRepository;
 import jakarta.validation.ConstraintViolationException;
 
@@ -30,13 +38,17 @@ public class Instanciacao implements CommandLineRunner {
     private final CidadeRepository cidadeRepository;
     private final EnderecoRepository enderecoRepository;
     private final ClienteRepository clienteRepository;
+    private final PagamentoRepository pagamentoRepository;
+    private final PedidoRepository pedidoRepository;
     
-    public Instanciacao(CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository, CidadeRepository cidadeRepository, EnderecoRepository enderecoRepository, ClienteRepository clienteRepository) {
+    public Instanciacao(CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository, CidadeRepository cidadeRepository, EnderecoRepository enderecoRepository, ClienteRepository clienteRepository, PagamentoRepository pagamentoRepository, PedidoRepository pedidoRepository) {
         this.categoriaRepository = categoriaRepository;
         this.produtoRepository = produtoRepository;
         this.cidadeRepository = cidadeRepository;
         this.enderecoRepository = enderecoRepository;
         this.clienteRepository = clienteRepository;
+        this.pagamentoRepository = pagamentoRepository;
+        this.pedidoRepository = pedidoRepository;
     }
 
     @Override
@@ -84,6 +96,22 @@ public class Instanciacao implements CommandLineRunner {
 
         cliente1.getEnderecos().addAll(Arrays.asList(enderecosDumb.get(0), enderecosDumb.get(1)));
         this.clienteRepository.save(cliente1);
+
+        SimpleDateFormat formatadorData = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+
+        List<Pedido> pedidosDumb = new ArrayList<>();
+        pedidosDumb.add(new Pedido(formatadorData.parse("30/09/2017 10:32").toInstant(), null, cliente1, enderecosDumb.get(0)));
+        pedidosDumb.add(new Pedido(formatadorData.parse("10/10/2017 09:14").toInstant(), null, cliente1, enderecosDumb.get(1)));
+
+        Pagamento pagamento1 = new PagamentoCartaoCredito(StatusPagamentoEnum.PENDENTE, pedidosDumb.get(0), "1234 1234 1234 1234");
+        pedidosDumb.get(0).setPagamento(pagamento1);
+        Pagamento pagamento2 = new PagamentoBoleto(StatusPagamentoEnum.CANCELADO, pedidosDumb.get(1), formatadorData.parse("10/10/2017 09:14"), formatadorData.parse("20/10/2017 09:14"));
+        pedidosDumb.get(1).setPagamento(pagamento2);
+
+        this.pedidoRepository.saveAll(pedidosDumb);
+
+        this.pagamentoRepository.save(pagamento1);
+        this.pagamentoRepository.save(pagamento2);
 
     }
 
