@@ -52,4 +52,21 @@ public class TesteDownloadResource {
         return new ResponseEntity<>(fileContent, headers, HttpStatus.OK);
     }
 
+    @GetMapping("/video")
+    public ResponseEntity<byte[]> downloadVideo() throws IOException {
+        // Localização do arquivo de vídeo
+        Resource resource = new ClassPathResource("static/testedownload.mp4");
+
+        // Lendo o arquivo como bytes
+        byte[] fileContent = Files.readAllBytes(resource.getFile().toPath());
+
+        // Configurando o cabeçalho da resposta
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=testedownload.mp4");
+        headers.add(HttpHeaders.CONTENT_TYPE, "video/mp4");
+
+        // Retornando o arquivo como uma resposta HTTP
+        return new ResponseEntity<>(fileContent, headers, HttpStatus.OK);
+    }
+
 }
