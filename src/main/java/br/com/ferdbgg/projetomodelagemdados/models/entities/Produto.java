@@ -82,4 +82,8 @@ public class Produto implements Serializable {
         }
     }
 
+    public List<Pedido> getPedidos() {
+        return this.getItensPedido().stream().map(i -> i.getId().getPedido()).toList();
+    }
+
 }
