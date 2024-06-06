@@ -3,7 +3,10 @@ package br.com.ferdbgg.projetomodelagemdados.models.entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -56,6 +59,9 @@ public class Produto implements Serializable {
     )
     private List<Categoria> categorias = new ArrayList<>();
 
+    @Setter(value = AccessLevel.NONE)
+    private Set<ItemPedido> itensPedido = new HashSet<>();
+
     public Produto(String nome, BigDecimal preco) {
         this.nome = nome;
         this.preco = preco;
@@ -65,6 +71,14 @@ public class Produto implements Serializable {
         this.categorias.clear();
         if(categorias != null) {
             this.categorias.addAll(categorias);
+        }
+    }
+
+    //TODO: tentar ver se é melhor mudar tudo pra Collection
+    public void setItensPedido(Collection<ItemPedido> itensPedido) {
+        this.itensPedido.clear();
+        if(itensPedido != null) {
+            this.itensPedido.addAll(itensPedido);
         }
     }
 
