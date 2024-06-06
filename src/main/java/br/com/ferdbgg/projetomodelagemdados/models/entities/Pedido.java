@@ -2,6 +2,9 @@ package br.com.ferdbgg.projetomodelagemdados.models.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -52,6 +55,8 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "idEnderecoEntrega")
     @JsonManagedReference
     private Endereco enderecoEntrega;
+
+    private Set<ItemPedido> itensPedido = new HashSet<>(); //new TreeSet<>(); //TODO: fazer o get e o set
 
     public Pedido(Instant instanteCompra, Pagamento pagamento, Cliente cliente, Endereco enderecoEntrega) {
         this.instanteCompra = instanteCompra;
