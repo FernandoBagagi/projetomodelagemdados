@@ -2,6 +2,7 @@ package br.com.ferdbgg.projetomodelagemdados.models.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
@@ -16,8 +17,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -56,13 +59,22 @@ public class Pedido implements Serializable {
     @JsonManagedReference
     private Endereco enderecoEntrega;
 
-    private Set<ItemPedido> itensPedido = new HashSet<>(); //new TreeSet<>(); //TODO: fazer o get e o set
+    @Setter(value = AccessLevel.NONE)
+    @OneToMany(mappedBy = "id.pedido")
+    private Set<ItemPedido> itensPedido = new HashSet<>(); //new TreeSet<>();
 
     public Pedido(Instant instanteCompra, Pagamento pagamento, Cliente cliente, Endereco enderecoEntrega) {
         this.instanteCompra = instanteCompra;
         this.pagamento = pagamento;
         this.cliente = cliente;
         this.enderecoEntrega = enderecoEntrega;
+    }
+
+    public void setItensPedido(Collection<ItemPedido> itensPedido) {
+        this.itensPedido.clear();
+        if(itensPedido != null) {
+            this.itensPedido.addAll(itensPedido);
+        }
     }
 
 }
