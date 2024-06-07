@@ -19,6 +19,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
 import lombok.AccessLevel;
@@ -60,6 +61,7 @@ public class Produto implements Serializable {
     private List<Categoria> categorias = new ArrayList<>();
 
     @Setter(value = AccessLevel.NONE)
+    @OneToMany(mappedBy = "id.produto")
     private Set<ItemPedido> itensPedido = new HashSet<>();
 
     public Produto(String nome, BigDecimal preco) {
