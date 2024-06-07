@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import br.com.ferdbgg.projetomodelagemdados.models.chavesprimariascompostas.IdItemPedido;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,11 +17,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Entity
+@Table(name = "itenspedido")
 public class ItemPedido implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @EqualsAndHashCode.Include
+    @EmbeddedId
     private IdItemPedido id; //fazer o total encapsulamento desse atributo, tirar get, set, construtor
 
     private Integer quantidade;
