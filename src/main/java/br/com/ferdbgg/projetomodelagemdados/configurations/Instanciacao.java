@@ -13,6 +13,7 @@ import br.com.ferdbgg.projetomodelagemdados.models.entities.Categoria;
 import br.com.ferdbgg.projetomodelagemdados.models.entities.Cidade;
 import br.com.ferdbgg.projetomodelagemdados.models.entities.Cliente;
 import br.com.ferdbgg.projetomodelagemdados.models.entities.Endereco;
+import br.com.ferdbgg.projetomodelagemdados.models.entities.ItemPedido;
 import br.com.ferdbgg.projetomodelagemdados.models.entities.Pagamento;
 import br.com.ferdbgg.projetomodelagemdados.models.entities.PagamentoBoleto;
 import br.com.ferdbgg.projetomodelagemdados.models.entities.PagamentoCartaoCredito;
@@ -25,6 +26,7 @@ import br.com.ferdbgg.projetomodelagemdados.repositories.CategoriaRepository;
 import br.com.ferdbgg.projetomodelagemdados.repositories.CidadeRepository;
 import br.com.ferdbgg.projetomodelagemdados.repositories.ClienteRepository;
 import br.com.ferdbgg.projetomodelagemdados.repositories.EnderecoRepository;
+import br.com.ferdbgg.projetomodelagemdados.repositories.ItemPedidoRepository;
 import br.com.ferdbgg.projetomodelagemdados.repositories.PagamentoRepository;
 import br.com.ferdbgg.projetomodelagemdados.repositories.PedidoRepository;
 import br.com.ferdbgg.projetomodelagemdados.repositories.ProdutoRepository;
@@ -40,8 +42,9 @@ public class Instanciacao implements CommandLineRunner {
     private final ClienteRepository clienteRepository;
     private final PagamentoRepository pagamentoRepository;
     private final PedidoRepository pedidoRepository;
-    
-    public Instanciacao(CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository, CidadeRepository cidadeRepository, EnderecoRepository enderecoRepository, ClienteRepository clienteRepository, PagamentoRepository pagamentoRepository, PedidoRepository pedidoRepository) {
+    private final ItemPedidoRepository itemPedidoRepository;
+
+    public Instanciacao(CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository, CidadeRepository cidadeRepository, EnderecoRepository enderecoRepository, ClienteRepository clienteRepository, PagamentoRepository pagamentoRepository, PedidoRepository pedidoRepository, ItemPedidoRepository itemPedidoRepository) {
         this.categoriaRepository = categoriaRepository;
         this.produtoRepository = produtoRepository;
         this.cidadeRepository = cidadeRepository;
@@ -49,6 +52,7 @@ public class Instanciacao implements CommandLineRunner {
         this.clienteRepository = clienteRepository;
         this.pagamentoRepository = pagamentoRepository;
         this.pedidoRepository = pedidoRepository;
+        this.itemPedidoRepository = itemPedidoRepository;
     }
 
     @Override
@@ -75,6 +79,8 @@ public class Instanciacao implements CommandLineRunner {
         List<Produto> produtosDumb = new ArrayList<>();
         produtosDumb.add(new Produto("Monitor", BigDecimal.valueOf(0.1)));
         produtosDumb.get(0).getCategorias().add(categoriaDumb.get(0));
+        produtosDumb.add(new Produto("Impressora", BigDecimal.valueOf(879.13)));
+        produtosDumb.get(1).getCategorias().add(categoriaDumb.get(0));
         this.produtoRepository.saveAll(produtosDumb);
 
         List<Cidade> cidadesDumb = new ArrayList<>();
@@ -112,6 +118,18 @@ public class Instanciacao implements CommandLineRunner {
 
         this.pagamentoRepository.save(pagamento1);
         this.pagamentoRepository.save(pagamento2);
+
+        ItemPedido ip1 = new ItemPedido(produtosDumb.get(0), pedidosDumb.get(0), 2, null, new BigDecimal("2000"));
+        ItemPedido ip2 = new ItemPedido(produtosDumb.get(0), pedidosDumb.get(1), 2, new BigDecimal("200"), new BigDecimal("2000"));
+        ItemPedido ip3 = new ItemPedido(produtosDumb.get(1), pedidosDumb.get(1), 2, new BigDecimal("200"), new BigDecimal("500"));
+
+        pedidosDumb.get(0).getItensPedido().add(ip1);
+        pedidosDumb.get(1).getItensPedido().addAll(Arrays.asList(ip2, ip3));
+
+        produtosDumb.get(0).getItensPedido().addAll(Arrays.asList(ip1, ip2));
+        produtosDumb.get(1).getItensPedido().add(ip3);
+
+        this.itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 
     }
 
