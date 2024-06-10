@@ -47,11 +47,12 @@ public class Pedido implements Serializable {
     private Instant instanteCompra;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
+    @JsonManagedReference
     private Pagamento pagamento;
 
     @ManyToOne
     @JoinColumn(name = "idCliente")
-    @JsonBackReference
+    @JsonManagedReference
     private Cliente cliente;
 
     @ManyToOne
