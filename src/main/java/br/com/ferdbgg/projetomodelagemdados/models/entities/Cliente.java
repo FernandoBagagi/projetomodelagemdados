@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import br.com.ferdbgg.projetomodelagemdados.models.enums.TipoClienteEnum;
@@ -67,7 +68,7 @@ public class Cliente implements Serializable {
 
     @Setter(value = AccessLevel.NONE)
     @OneToMany(mappedBy = "cliente")
-    @JsonManagedReference
+    @JsonBackReference
     private List<Pedido> pedidos = new ArrayList<>();
 
     public Cliente(String nome, String email, String cpfOuCnpj, TipoClienteEnum tipoCliente) {
