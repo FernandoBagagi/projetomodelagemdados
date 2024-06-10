@@ -1,6 +1,9 @@
 package br.com.ferdbgg.projetomodelagemdados.models.entities;
 
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import br.com.ferdbgg.projetomodelagemdados.models.enums.StatusPagamentoEnum;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -40,6 +43,7 @@ public abstract class Pagamento implements Serializable {
     @OneToOne
     @JoinColumn(name = "idPedido")
     @MapsId
+    @JsonBackReference
     protected Pedido pedido;
 
     protected Pagamento(StatusPagamentoEnum status, Pedido pedido) {
