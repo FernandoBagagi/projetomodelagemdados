@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
@@ -62,6 +63,7 @@ public class Produto implements Serializable {
 
     @Setter(value = AccessLevel.NONE)
     @OneToMany(mappedBy = "id.produto")
+    @JsonIgnore
     private Set<ItemPedido> itensPedido = new HashSet<>();
 
     public Produto(String nome, BigDecimal preco) {
@@ -84,6 +86,7 @@ public class Produto implements Serializable {
         }
     }
 
+    @JsonIgnore
     public List<Pedido> getPedidos() {
         return this.getItensPedido().stream().map(i -> i.getId().getPedido()).toList();
     }
