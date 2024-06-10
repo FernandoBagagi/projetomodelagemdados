@@ -3,6 +3,8 @@ package br.com.ferdbgg.projetomodelagemdados.models.entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.ferdbgg.projetomodelagemdados.models.chavesprimariascompostas.IdItemPedido;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -25,6 +27,7 @@ public class ItemPedido implements Serializable {
 
     @EqualsAndHashCode.Include
     @EmbeddedId
+    @JsonIgnore
     private IdItemPedido id; //fazer o total encapsulamento desse atributo, tirar get, set, construtor
 
     private Integer quantidade;
@@ -39,5 +42,7 @@ public class ItemPedido implements Serializable {
         this.valorDesconto = valorDesconto;
         this.preco = preco;
     }
+
+    //TODO: fazer getPedido e get Produto, coloca @JsonIgnore somente no getPedido
 
 }
