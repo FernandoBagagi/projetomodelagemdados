@@ -23,10 +23,10 @@ import lombok.Setter;
 public class PagamentoBoleto extends Pagamento {
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date vencimento;
+    private Date vencimento; //Criar as restrições do banco
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date pagamento;
+    private Date pagamento; //Criar as restrições do banco
 
     public PagamentoBoleto(StatusPagamentoEnum status, Pedido pedido, Date vencimento, Date pagamento) {
         super(status, pedido);
