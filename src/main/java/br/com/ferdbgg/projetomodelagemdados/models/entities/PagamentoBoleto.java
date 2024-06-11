@@ -2,6 +2,8 @@ package br.com.ferdbgg.projetomodelagemdados.models.entities;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import br.com.ferdbgg.projetomodelagemdados.models.enums.StatusPagamentoEnum;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -20,8 +22,10 @@ import lombok.Setter;
 @Table(name = "pagamentosboleto")
 public class PagamentoBoleto extends Pagamento {
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date vencimento;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date pagamento;
 
     public PagamentoBoleto(StatusPagamentoEnum status, Pedido pedido, Date vencimento, Date pagamento) {
