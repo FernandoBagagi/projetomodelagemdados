@@ -34,10 +34,11 @@ public class Categoria implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
+    //TODO: colcoar anotações do banco
     private String nome;
 
     @Setter(value = AccessLevel.NONE)
-    @JsonBackReference
+    @JsonBackReference //TODO: Trocar por Jsonignore
     @ManyToMany(mappedBy = "categorias", fetch = FetchType.LAZY)
     private List<Produto> produtos = new ArrayList<>();
 
@@ -53,6 +54,7 @@ public class Categoria implements Serializable {
         }
     }
 
+    //TODO: pensar em manter somente o do lombok ou fazer isso em todos
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
