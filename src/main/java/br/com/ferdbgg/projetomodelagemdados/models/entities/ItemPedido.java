@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor
-//@AllArgsConstructor
+//@AllArgsConstructor TODO: retirar
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -27,14 +27,14 @@ public class ItemPedido implements Serializable {
 
     @EqualsAndHashCode.Include
     @EmbeddedId
-    @JsonIgnore
+    @JsonIgnore //TODO ignorar ou retornar só os ids?
     private IdItemPedido id; //fazer o total encapsulamento desse atributo, tirar get, set, construtor
 
-    private Integer quantidade;
+    private Integer quantidade; //TODO criar restrições do banco
 
     private BigDecimal valorDesconto; //TODO: colocar as restrições do banco
 
-    private BigDecimal preco;
+    private BigDecimal preco; //TODO: colocar as restrições do banco
 
     public ItemPedido(Produto produto, Pedido pedido, Integer quantidade, BigDecimal valorDesconto, BigDecimal preco) {
         this.id = new IdItemPedido(produto, pedido);
