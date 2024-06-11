@@ -3,11 +3,14 @@ package br.com.ferdbgg.projetomodelagemdados.models.entities;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -44,6 +47,7 @@ public class Pedido implements Serializable {
     private Integer id;
 
     @Column(nullable = false)
+    @JsonIgnore
     private Instant instanteCompra;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
@@ -77,5 +81,10 @@ public class Pedido implements Serializable {
             this.itensPedido.addAll(itensPedido);
         }
     }
+
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    public Date getInstanteCompra() {
+        return Date.from(this.instanteCompra);
+    }    
 
 }
