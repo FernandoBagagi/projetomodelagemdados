@@ -71,5 +71,7 @@ public class Endereco implements Serializable {
     public String getNomeCliente() {
         return this.cliente == null ? "Sem cliente" : cliente.getNome();
     }
+
+    //TODO: criar um toString() e pro Json passar somente essa String
         
 }
