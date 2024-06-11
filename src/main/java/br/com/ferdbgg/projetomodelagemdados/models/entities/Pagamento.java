@@ -43,7 +43,7 @@ public abstract class Pagamento implements Serializable {
     @OneToOne
     @JoinColumn(name = "idPedido")
     @MapsId
-    @JsonBackReference
+    @JsonBackReference//TODO: Trocar por Jsonignore, precisa mesmo dessa referência pra pedido?
     protected Pedido pedido;
 
     protected Pagamento(StatusPagamentoEnum status, Pedido pedido) {
