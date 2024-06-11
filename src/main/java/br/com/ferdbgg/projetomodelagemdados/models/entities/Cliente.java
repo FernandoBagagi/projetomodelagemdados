@@ -26,11 +26,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
+@NoArgsConstructor //TODO: trocar por @Data
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true) //TODO: ver como ficaria isso no @Data
 @Entity
 @Table(name = "clientes")
 public class Cliente implements Serializable {
@@ -48,27 +48,29 @@ public class Cliente implements Serializable {
     @Column(nullable = false)
     private String email;
 
+    //TODO: pesquisar se tem como verificar o formato para salvar, exemplo cpf tem que ser xxx.xxx.xxx-xx
     @Column(nullable = false, unique = true)
     private String cpfOuCnpj;
 
     @Getter(value = AccessLevel.NONE)
     @Setter(value = AccessLevel.NONE)
     @Column(nullable = false)
-    private Integer tipoCliente;
+    private Integer tipoCliente; //TODO: tirar AllArgsConstructor
 
     @Setter(value = AccessLevel.NONE)
     @OneToMany(mappedBy = "cliente")
-    @JsonManagedReference
+    @JsonManagedReference //TODO: retirar
     private List<Endereco> enderecos = new ArrayList<>();
 
     @Setter(value = AccessLevel.NONE)
     @ElementCollection
     @CollectionTable(name = "telefones")
+    //TODO: Ver se transformar isso em uma classe é melhor
     private Set<String> telefones = new HashSet<>();
 
     @Setter(value = AccessLevel.NONE)
     @OneToMany(mappedBy = "cliente")
-    @JsonBackReference
+    @JsonBackReference //TODO: Trocar por Jsonignore
     private List<Pedido> pedidos = new ArrayList<>();
 
     public Cliente(String nome, String email, String cpfOuCnpj, TipoClienteEnum tipoCliente) {
