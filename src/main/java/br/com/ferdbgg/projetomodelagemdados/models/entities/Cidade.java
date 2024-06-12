@@ -14,9 +14,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
-import lombok.NonNull;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "cidades")
 public class Cidade implements Serializable {
@@ -28,13 +29,16 @@ public class Cidade implements Serializable {
     private Integer id;
 
     @Column(nullable = false)
-    @NonNull
     private String nome;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "uf")
-    @NonNull
     @JsonProperty("uf")
     private EstadoEnum estado;
+
+    public Cidade(String nome, EstadoEnum estado) {
+        this.nome = nome;
+        this.estado = estado;
+    }
 
 }
