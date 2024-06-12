@@ -13,15 +13,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NonNull;
 
-@NoArgsConstructor
-@Getter
-@Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Data
 @Entity
 @Table(name = "cidades")
 public class Cidade implements Serializable {
@@ -30,20 +25,16 @@ public class Cidade implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
     private Integer id;
 
     @Column(nullable = false)
+    @NonNull
     private String nome;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "uf")
+    @NonNull
     @JsonProperty("uf")
     private EstadoEnum estado;
-
-    public Cidade(String nome, EstadoEnum estado) {
-        this.nome = nome;
-        this.estado = estado;
-    }
 
 }
