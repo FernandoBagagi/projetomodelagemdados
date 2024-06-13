@@ -52,7 +52,7 @@ public class Produto implements Serializable {
     private BigDecimal preco;
 
     @Setter(value = AccessLevel.NONE)
-    @JsonManagedReference
+    @JsonManagedReference //TODO: retirar
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "produtos_categorias",
@@ -71,7 +71,7 @@ public class Produto implements Serializable {
         this.preco = preco;
     }
 
-    public void setCategorias(List<Categoria> categorias) {
+    public void setCategorias(List<Categoria> categorias) { //TODO: mudar pra collection
         this.categorias.clear();
         if(categorias != null) {
             this.categorias.addAll(categorias);
@@ -88,7 +88,7 @@ public class Produto implements Serializable {
 
     @JsonIgnore
     public List<Pedido> getPedidos() {
-        return this.getItensPedido().stream().map(i -> i.getId().getPedido()).toList();
+        return this.getItensPedido().stream().map(i -> i.getId().getPedido()).toList(); //TODO: mudat para Item::getPedido
     }
 
 }
