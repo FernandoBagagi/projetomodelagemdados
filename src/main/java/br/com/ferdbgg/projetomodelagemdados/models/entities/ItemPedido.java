@@ -21,7 +21,7 @@ import lombok.Setter;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "itenspedido")
-public class ItemPedido implements Serializable {
+public class ItemPedido implements Serializable { //TODO: implementar comparable para poder usar o Tree
 
     private static final long serialVersionUID = 1L;
 
