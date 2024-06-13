@@ -48,25 +48,25 @@ public class Pedido implements Serializable {
 
     @Column(nullable = false)
     @JsonIgnore
-    private Instant instanteCompra;
+    private Instant instanteCompra; //TODO: criar formatação no banco, ver se é mais interesante mudar pra date ao invés de usar o ignora?
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
-    @JsonManagedReference
+    @JsonManagedReference //TODO: Retirar
     private Pagamento pagamento;
 
     @ManyToOne
     @JoinColumn(name = "idCliente")
-    @JsonManagedReference
+    @JsonManagedReference //TODO: Retirar
     private Cliente cliente;
 
     @ManyToOne
     @JoinColumn(name = "idEnderecoEntrega")
-    @JsonManagedReference
-    private Endereco enderecoEntrega;
+    @JsonManagedReference //TODO: Retirar
+    private Endereco enderecoEntrega; //TODO: pensar em mudar pro toString()
 
     @Setter(value = AccessLevel.NONE)
     @OneToMany(mappedBy = "id.pedido")
-    private Set<ItemPedido> itensPedido = new HashSet<>(); //new TreeSet<>();
+    private Set<ItemPedido> itensPedido = new HashSet<>(); //new TreeSet<>(); //TODO: implementar o comparable
 
     public Pedido(Instant instanteCompra, Pagamento pagamento, Cliente cliente, Endereco enderecoEntrega) {
         this.instanteCompra = instanteCompra;
